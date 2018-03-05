@@ -1,0 +1,5 @@
+.build/
+*.swp
+/local/
+/YAML-Dump-*.tar.gz
+/YAML-Dump-*/
