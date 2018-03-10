@@ -45,12 +45,13 @@
       "test" : {
          "requires" : {
             "Path::Tiny" : "0.096",
+            "Test::Exception" : "0",
             "Test::More" : "0.88"
          }
       }
    },
    "release_status" : "stable",
-   "version" : "0.001",
+   "version" : "1.80",
    "x_contributors" : [
       "Flavio Poletti <flavio@polettix.it>"
    ]
