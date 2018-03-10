@@ -1,5 +1,5 @@
 {
-   "abstract" : "[ a brief description of the distribution ]",
+   "abstract" : "Dump stuff, (simplified) YAML style",
    "author" : [
       "Flavio Poletti <polettix@cpan.org>"
    ],
