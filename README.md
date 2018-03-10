@@ -62,8 +62,8 @@ recognized:
 - [boolean](https://metacpan.org/pod/boolean)
 - [JSON::XS::Boolean](https://metacpan.org/pod/JSON::XS::Boolean)
 - [Types::Serialiaser::Boolean](https://metacpan.org/pod/Types::Serialiaser::Boolean) (although it should not be needed)
-- [Mojo::JSON::\_Bool](https://metacpan.org/pod/Mojo::JSON::_Bool), for [Mojolicious](https://metacpan.org/pod/Mojolicious) up to versio 6.21 (it later
-switched to [JSON::PP::Boolean](https://metacpan.org/pod/JSON::PP::Boolean).
+- [Mojo::JSON::\_Bool](https://metacpan.org/pod/Mojo::JSON::_Bool), for [Mojolicious](https://metacpan.org/pod/Mojolicious) up to version 6.21 (it later
+switched to [JSON::PP::Boolean](https://metacpan.org/pod/JSON::PP::Boolean)).
 
 ## Unsupported References
 
@@ -190,7 +190,7 @@ Flavio Poletti <polettix@cpan.org>
 # COPYRIGHT AND LICENSE
 
 This is tricky. A good part of the code comes from [YAML::Tiny](https://metacpan.org/pod/YAML::Tiny), whose
-copyright statemnt at time of copy is:
+copyright statement at time of copy is:
 
     Copyright 2006 - 2013 Adam Kennedy.
 

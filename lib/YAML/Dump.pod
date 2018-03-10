@@ -106,8 +106,8 @@ L<Types::Serialiaser::Boolean> (although it should not be needed)
 
 =item *
 
-L<Mojo::JSON::_Bool>, for L<Mojolicious> up to versio 6.21 (it later
-switched to L<JSON::PP::Boolean>.
+L<Mojo::JSON::_Bool>, for L<Mojolicious> up to version 6.21 (it later
+switched to L<JSON::PP::Boolean>).
 
 =back
 
@@ -254,7 +254,7 @@ Flavio Poletti <polettix@cpan.org>
 =head1 COPYRIGHT AND LICENSE
 
 This is tricky. A good part of the code comes from L<YAML::Tiny>, whose
-copyright statemnt at time of copy is:
+copyright statement at time of copy is:
 
    Copyright 2006 - 2013 Adam Kennedy.
 
