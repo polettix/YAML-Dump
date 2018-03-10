@@ -159,7 +159,8 @@ Report bugs through GitHub (patches welcome).
 
 # SEE ALSO
 
-Foo::Bar.
+[YAML::Tiny](https://metacpan.org/pod/YAML::Tiny), where most of the code was taken. But hey! There is also my
+stuff!
 
 # AUTHOR
 
@@ -167,10 +168,39 @@ Flavio Poletti <polettix@cpan.org>
 
 # COPYRIGHT AND LICENSE
 
-Copyright (C) 2018 by Flavio Poletti <polettix@cpan.org>
+This is tricky. A good part of the code comes from [YAML::Tiny](https://metacpan.org/pod/YAML::Tiny), whose
+copyright statemnt at time of copy is:
 
-This module is free software. You can redistribute it and/or modify it
-under the terms of the Artistic License 2.0.
+    Copyright 2006 - 2013 Adam Kennedy.
+
+    This program is free software; you can redistribute
+    it and/or modify it under the same terms as Perl itself.
+
+    The full text of the license can be found in the LICENSE file included
+    with this module.
+
+Now, _under the same terms as Perl itself_ is in itself a bit ambiguous,
+even though the original LICENSE has this:
+
+    This software is copyright (c) 2006 by Adam Kennedy.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
+    Terms of the Perl programming language system itself
+
+    a) the GNU General Public License as published by the Free
+       Software Foundation; either version 1, or (at your option) any
+       later version, or b) the "Artistic License"
+
+Again, it's my understanding that even _the same terms as Perl
+5 programming language system itself_ is a bit ambiguous. Also,
+the _Artistic License_ is, in itself, ambiguous, which is why
+the Perl Foundation eventually recommended the _Artistic License 2.0_.
+
+Anyway, a hopefully compatible license can be found in file LICENSE.
+
+Additions are copyright (C) 2018 by Flavio Poletti <polettix@cpan.org>
 
 This program is distributed in the hope that it will be useful, but
 without any warranty; without even the implied warranty of
