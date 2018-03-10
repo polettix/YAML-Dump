@@ -4,7 +4,7 @@
 
 =head1 NAME
 
-YAML::Dump - [ a brief description of the distribution ]
+YAML::Dump - Dump stuff, (simplified) YAML style
 
 =head1 VERSION
 
@@ -12,27 +12,212 @@ This document describes YAML::Dump version {{[ version ]}}.
 
 =head1 SYNOPSIS
 
-   use YAML::Dump;
+   use YAML::Dump qw< Dump >;
 
+   my $data = { ... };
+   say Dump $data
 
 =head1 DESCRIPTION
 
-This module allows you to...
+This module allows you to generate a YAML representation of a data
+structure, provided that:
+
+=over
+
+=item *
+
+there are no circular references
+
+=item *
+
+there are no objects or "weird" references, but see below
+
+
+=back
+
+If you recognize most (not all) the constraints of L<YAML::Tiny> you are
+totally right, because most of the code in this module is taken from
+there. There are two notable differences:
+
+=over
+
+=item *
+
+booleans are supported, see L</Booleans>
+
+=item *
+
+you can provide your way of dumping objects by implementing
+L</dumper_for_unknown>, see L</Unsupported References>.
+
+=back
+
+=head2 Booleans
+
+Booleans are recognized and rendered as either C<false> and C<true>
+(unquoted), depending on their truthness. The following variants are
+recognized:
+
+=over
+
+=item *
+
+a reference to a I<purely integer> scalar variable holding values C<0> or
+C<1>. Dual-lived variables or other values will not work.
+
+=item *
+
+L<JSON::PP::Boolean>
+
+=item *
+
+L<boolean>
+
+=item *
+
+L<JSON::XS::Boolean>
+
+=item *
+
+L<Types::Serialiaser::Boolean> (although it should not be needed)
+
+=item *
+
+L<Mojo::JSON::_Bool>, for L<Mojolicious> up to versio 6.21 (it later
+switched to L<JSON::PP::Boolean>.
+
+=back
+
+
+=head2 Unsupported References
+
+When a reference that is neither a hash or an array reference is found,
+method L</dumper_for_objects> is called. This method first tries to figure
+out if the reference is one of the allowed L</Booleans> representations,
+then hands over to a method L</dumper_for_unknown> (if the class has one),
+then as a last resort it complains loudly C<die>ing.
+
+If you want to provide your own dumping functions, you can either override
+L</dumper_for_objects> (losing support for L</Booleans>), or provide your
+method L</dumper_for_unknown>. By default there is none, so you can either
+derive a subclass from YAML::Dump, or monkey-patch it by implementing the
+method directly:
+
+   sub YAML::Dump::dumper_for_unknown { 
+      my ($self, $element, $line, $indent, $seen) = @_;
+   }
 
 =head1 FUNCTIONS
 
-=head2 B<< whatever >>
+=head2 B<< Dump >>
 
+   my $string = Dump(@data_structures);
 
+generate a YAML representation of C<@data_structures>.
+
+=head2 B<< INDENT >>
+
+   my $string = INDENT;
+
+the indentation as space characters. This is useful if you have to
+generate indentation string with L</dumper_for_unknown>.
 
 =head1 METHODS
 
-=head2 B<< whatever >>
+=head2 B<< dumper_for_objects >>
 
+   my @lines = $obj->dumper_for_objects($element, $line, $indent, $seen);
+
+This method generates a representation for booleans or, as a fallback,
+calls L</dumper_for_unknown>. If you override this you lose the
+possibility of dumping booleans, you are probably looking for
+L</dumper_for_unknown>.
+
+=head2 B<< dumper_for_unknown >>
+
+   my @stuff = $obj->dumper_for_unknown($element, $line, $indent, $seen);
+
+This method is not really present, but is invoked if you provide one
+(either in a subclass, or monkey-patching YAML::Dump, see
+L</Unsupported References>). This allows you to provide your own
+generating functions for your classes, should you need to do this.
+
+The method is provided the following positional parameters:
+
+=over
+
+=item C<$element>
+
+the element to dump in YAML
+
+=item C<$line>
+
+the line where the element will be put (starting). It can be one of the
+following:
+
+=over
+
+=item *
+
+an empty string, in case the object is at the root level
+
+=item *
+
+a string starting with spaces and ending with a dash C<->: your element is
+part of an array
+
+=item *
+
+a string ending with a colon C<:>: your element is the value of a hash
+
+=back
+
+If your dump is just on a single line, it's sufficient to pre-pend the
+string representation with a space; otherwise, decide what you want to do
+also taking into consideration C<$indent> (see below) and also taking into
+consideration that it is your responsibility to output the C<$line>
+anyway.
+
+=item C<$indent>
+
+The indentation level, should you need it (e.g. for multi-line dumps). To
+generate the indentation string, use L</INDENT>:
+
+   my $indentation_string = INDENT x $indent;
+
+=item C<$seen>
+
+used to track circular references. Use this if your object contains other
+references with the potential for a cycle of references. This is how you
+can use it:
+
+   sub dumper_for_unknown {
+      # ...
+
+      my $id = Scalar::Util::refaddr($some_reference);
+      die \'circular references are unsupported' if $seen->{$id};
+
+      # ...
+   }
+
+=back
+
+The return value from this method can be either a list of lines (with the
+proper indentation, and starting with the content of C<$line> above) or
+a single array or hash reference, which will be transformed automatically.
+This allows you to basically ignore C<$line>, C<$indent> (but probably not
+C<$seen>) and let YAML::Dump do the work for you.
+
+
+=head2 B<< new >>
+
+   my $obj = YAML::Dump->new(@data_for_dumping);
+
+Generate an object. You should not need to use this, use L</Dump> instead.
 
 =head1 BUGS AND LIMITATIONS
 
-Report bugs either through RT or GitHub (patches welcome).
+Report bugs through GitHub (patches welcome).
 
 =head1 SEE ALSO
 
