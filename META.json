@@ -50,7 +50,7 @@
          }
       }
    },
-   "release_status" : "stable",
+   "release_status" : "testing",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/polettix/YAML-Dump/issues"
@@ -62,7 +62,7 @@
          "web" : "https://github.com/polettix/YAML-Dump"
       }
    },
-   "version" : "1.80",
+   "version" : "1.81",
    "x_contributors" : [
       "Flavio Poletti <flavio@polettix.it>"
    ]

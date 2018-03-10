@@ -2,7 +2,7 @@ package YAML::Dump; # adapted from YAML::Tiny 1.73
 use 5.010; # this is where I want to start from
 use strict;
 # use warnings; # disabled in modules
-{ our $VERSION = '1.80'; }
+{ our $VERSION = '1.81'; }
 
 use B;
 use Scalar::Util qw< blessed refaddr >;
