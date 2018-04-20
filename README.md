@@ -67,7 +67,7 @@ switched to [JSON::PP::Boolean](https://metacpan.org/pod/JSON::PP::Boolean)).
 
 ## Unsupported References
 
-When a reference that is neither a hash or an array reference is found,
+When a reference that is neither a hash nor an array reference is found,
 method ["dumper\_for\_objects"](#dumper_for_objects) is called. This method first tries to figure
 out if the reference is one of the allowed ["Booleans"](#booleans) representations,
 then hands over to a method ["dumper\_for\_unknown"](#dumper_for_unknown) (if the class has one),
